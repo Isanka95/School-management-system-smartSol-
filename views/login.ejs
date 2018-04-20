@@ -37,11 +37,17 @@
                 <div class="box">
                     <div class="content-wrap">
                         <h6>Log In</h6>
-                        <input class="form-control" type="text" placeholder="Index number">
-                        <input class="form-control" type="password" placeholder="Password">
-                        <div class="action">
-                            <a class="btn btn-primary signup" href="index.html">Login</a>
-                        </div>
+                        <form action="/login" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="username" placeholder="username">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" placeholder="password">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-primary btn-block">Login</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -49,12 +55,4 @@
     </div>
 </div>
 
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/scripts/bootstrap.min.js"></script>
-<script src="/scripts/custom.js"></script>
-</body>
-</html>
+<% include partials/footer.ejs %>
