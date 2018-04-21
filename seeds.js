@@ -21,7 +21,7 @@ function seedDB(){
               if(err){
                   console.log(err);
               }else {
-                  User.register({username:"admin"}, "password", function(err, user){
+                  User.register({username:"admin",type:"admin"}, "password", function(err, user){
                       if(err){
                           console.log(err);
                       }else{

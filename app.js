@@ -36,22 +36,34 @@ seedDB();
 
 
 app.get("/",function (req,res) {
-    res.render("admin/index");
+    res.render("login");
 })
 
 app.get("/dashbord",function (req,res) {
-    res.render("admin/index");
     // console.log(req);
-    // console.log(req.user.isUser==true);
-    Admin.findOne({"authent.id":req.user._id},function (err,admin) {
-        if(err){
-            console.log(err);
-        }else {
-            console.log(admin);
-        }
-    })
+    // // console.log(req.user.isUser==true);
+    // Admin.findOne({"authent.id":req.user._id},function (err,admin) {
+    //     if(err){
+    //         console.log(err);
+    //     }else {
+    //         console.log(admin);
+    //     }
+    // })
+    if(req.user.type==="admin"){
+        Admin.findOne({"authent.id":req.user._id},function (err,admin) {
+            if(err){
+                console.log(err);
+            }else {
+                res.render("admin/createUser");
+                console.log(admin);
 
-})
+            }
+        })
+    }else{
+        res.redirect("/");
+    }
+
+});
 
 app.post("/login", passport.authenticate("local",
     {
