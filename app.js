@@ -8,6 +8,12 @@ var express    = require("express"),
     seedDB     = require("./seeds");
 
 
+// =====require routes =======
+var indexRoutes      = require("./routes/index"),
+    usersRoutes      = require("./routes/users");
+
+
+
 var app = express();
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended: true}));
@@ -34,44 +40,9 @@ passport.deserializeUser(User.deserializeUser());
 
 seedDB();
 
-
-app.get("/",function (req,res) {
-    res.render("login");
-})
-
-app.get("/dashbord",function (req,res) {
-    // console.log(req);
-    // // console.log(req.user.isUser==true);
-    // Admin.findOne({"authent.id":req.user._id},function (err,admin) {
-    //     if(err){
-    //         console.log(err);
-    //     }else {
-    //         console.log(admin);
-    //     }
-    // })
-    if(req.user.type==="admin"){
-        Admin.findOne({"authent.id":req.user._id},function (err,admin) {
-            if(err){
-                console.log(err);
-            }else {
-                res.render("admin/createUser");
-                console.log(admin);
-
-            }
-        })
-    }else{
-        res.redirect("/");
-    }
-
-});
-
-app.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/dashbord",
-        failureRedirect: "/"
-    }), function(req, res){
-});
-
+ //====calling routes===
+app.use("/", indexRoutes);
+app.use("/users", usersRoutes);
 
 app.listen(3000,function () {
     console.log("SMS server has started!")
